@@ -1,0 +1,48 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  cpf       String @unique
+  name      String
+  telephone String
+  email     String @unique
+  senha     String
+  role      Int?
+
+  @@map("pessoa")
+}
+
+model role {
+  id       Int    @id @default(autoincrement())
+  nameRole String
+
+  @@map("Papeis")
+}
+
+model service {
+  id          Int    @id @default(autoincrement())
+  name        String
+  description String
+
+  @@map("Servico")
+}
+
+model Scheduling {
+  codigo          Int      @id @default(autoincrement())
+  user_id         Int
+  service_id      Int
+  dateOfService   DateTime
+  hourOfService   DateTime
+
+  @@map("Agendamento")
+}
