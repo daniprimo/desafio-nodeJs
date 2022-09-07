@@ -31,8 +31,8 @@ export class UserController {
   }
 
   @Get(':cpf')
-  async getById(@Param('cpf') id: string): Promise<Prisma.UserCreateInput> {
-    return this.userService.getByCpf(id);
+  async getById(@Param('cpf') cpf: string): Promise<Prisma.UserCreateInput> {
+    return this.userService.getByCpf(cpf);
   }
 
   @Put(':cpf')
