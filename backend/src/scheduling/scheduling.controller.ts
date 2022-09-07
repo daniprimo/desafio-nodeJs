@@ -24,18 +24,18 @@ export class SchedulingController {
     return await this.schedulingService.getAll();
   }
 
-  @Get('id')
+  @Get(':id')
   async getById(@Param('id') id: number) {
     return this.schedulingService.getById(Number(id));
   }
-  @Put()
+  @Put(':id')
   async uodate(
     @Param('id') id: number,
     @Body() servico: Prisma.SchedulingCreateInput,
   ): Promise<Prisma.SchedulingCreateInput> {
     return await this.schedulingService.update(Number(id), servico);
   }
-  @Delete()
+  @Delete(':id')
   async delete(@Param('id') id: number) {
     this.schedulingService.delete(Number(id));
   }

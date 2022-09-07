@@ -23,12 +23,13 @@ export class ServiceController {
   async getAll(): Promise<Prisma.serviceCreateInput[]> {
     return await this.serviceService.getAll();
   }
-  @Get('id')
-  async getById(@Param('id') id: number) {
+
+  @Get(':id')
+  async getById(@Param('id') id: number): Promise<Prisma.serviceCreateInput> {
     return await this.serviceService.getById(Number(id));
   }
 
-  @Put()
+  @Put(':id')
   async update(
     @Param('id') id: number,
     @Body() service: Prisma.serviceCreateInput,
@@ -36,7 +37,7 @@ export class ServiceController {
     return await this.serviceService.update(Number(id), service);
   }
 
-  @Delete()
+  @Delete(':id')
   async delete(@Param('id') id: number) {
     this.serviceService.delete(Number(id));
   }
