@@ -14,9 +14,9 @@ model User {
   id        Int    @id @default(autoincrement())
   cpf       String @unique
   name      String
-  telephone String
+  phone String
   email     String @unique
-  senha     String
+  password     String
   role      Int?
 
   @@map("pessoa")
