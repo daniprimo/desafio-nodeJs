@@ -1,13 +1,11 @@
-import { Address } from './../models/address.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../models/user.model';
-import { Subject } from 'rxjs/internal/Subject';
-import { catchError, map, tap } from 'rxjs/operators';
 import { Observable } from 'rxjs/internal/Observable';
-import { json } from 'stream/consumers';
-import { of } from 'rxjs/internal/observable/of';
+import { Subject } from 'rxjs/internal/Subject';
+import { tap } from 'rxjs/operators';
+
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +28,7 @@ export class UserRegistryService {
     return this.http.post<User>(this.userUrl, user, this.httpOptions).pipe(
       tap((newUser: User) => {
         console.log(`added user w/ cpf = ${newUser.cpf}`);
+        alert('Usuário adicionado com sucesso');
       })
     );
   }

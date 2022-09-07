@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 
 import { Address } from '../models/address.model';
+import { MyErrorStateMatcher } from '../shared/my-error-state-matcher.component';
 import { UserRegistryService } from './user-registry.service';
 
 @Component({
@@ -18,6 +19,8 @@ export class UserRegistryComponent implements OnInit {
   user!: User;
   users: User[] = [];
 
+  matcher = new MyErrorStateMatcher();
+
   constructor(
     public userRegistryService: UserRegistryService,
     public route: ActivatedRoute
@@ -25,6 +28,7 @@ export class UserRegistryComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm(new User());
+    this.getUsers();
   }
 
   createForm(user: User) {
@@ -56,7 +60,10 @@ export class UserRegistryComponent implements OnInit {
   }
   getUsers() {
     this.userRegistryService.getUsers().subscribe((users) => {
-      users.forEach((user) => this.users.push(user));
+      users.forEach((user) => {
+        this.users.push(user);
+        console.log(user);
+      });
     });
   }
 
@@ -66,9 +73,11 @@ export class UserRegistryComponent implements OnInit {
     user.email = this.form.get('email')?.value;
     user.name = this.form.get('name')?.value;
     user.password = this.form.get('password')?.value;
+    user.phone = this.form.get('phone')?.value;
 
-    this.add(user);
-
-    this.form.reset(new User());
+    if (!this.form.invalid) {
+      this.add(user);
+      this.form.reset(new User());
+    }
   }
 }

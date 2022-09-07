@@ -12,9 +12,6 @@
           onkeypress="$(this).mask('000.000.000-00');"
           formControlName="cpf"
         />
-        <mat-error *ngIf="form.get('cpf')?.invalid"
-          >Por favor informe um CPF válido</mat-error
-        >
       </div>
     </div>
     <div class="row mb-3">
@@ -23,50 +20,38 @@
         <input type="text" class="form-control" formControlName="name" />
       </div>
     </div>
-    <!-- <div class="row mb-3">
-      <label for="cep" class="col-sm-2 col-form-label">CEP</label>
-      <div class="col-sm-10">
-        <input
-          type="text"
-          class="form-control"
-          onkeypress="$(this).mask('00.000-000')"
-        />
-      </div>
-    </div>
-    <div class="row mb-3">
-      <label for="logradouro" class="col-sm-2 col-form-label">Logradouro</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" />
-      </div>
-    </div>
-    <div class="row mb-3">
-      <label for="bairro" class="col-sm-2 col-form-label">Bairro</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" />
-      </div>
-    </div>
-    <div class="row mb-3">
-      <label for="city" class="col-sm-2 col-form-label">Cidade</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" />
-      </div>
-    </div>
-    <div class="row mb-3">
-      <label for="state" class="col-sm-2 col-form-label">Estado</label>
-      <div class="col-sm-10">
-        <input type="text" class="form-control" />
-      </div>
-    </div> -->
     <div class="row mb-3">
       <label for="email" class="col-sm-2 col-form-label">Celular</label>
       <div class="col-sm-10">
-        <input type="tel" class="form-control" formControlName="phone" />
+        <input
+          type="tel"
+          class="form-control"
+          formControlName="phone"
+          onkeypress="$(this).mask('(00)00000-0000');"
+        />
       </div>
     </div>
     <div class="row mb-3">
       <label for="email" class="col-sm-2 col-form-label">E-mail</label>
       <div class="col-sm-10">
-        <input type="email" class="form-control" formControlName="email" />
+        <input
+          matInput
+          type="email"
+          class="form-control"
+          formControlName="email"
+          [errorStateMatcher]="matcher"
+          placeholder="Exemplo. pat@exemplo.com"
+        />
+        <mat-error
+          *ngIf="
+            form.get('email')!.hasError('email') &&
+            !form.get('email')!.hasError('required')
+          "
+          >Por favor informe um e-mail válido.</mat-error
+        >
+        <mat-error *ngIf="form.get('email')!.hasError('required')">
+          Email é <strong>obrigatório</strong>
+        </mat-error>
       </div>
     </div>
     <div class="row mb-3">
@@ -81,6 +66,6 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Cadastrar</button>
-    <button type="reset" class="btn btn-primary">Limpar</button>
+    <button type="reset" class="btn btn-secondary">Limpar</button>
   </form>
 </div>
