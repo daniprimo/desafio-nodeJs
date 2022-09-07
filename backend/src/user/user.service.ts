@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { number } from 'yargs';
 import { PrismaService } from '../database/prisma.service';
 import { userDto } from './dto/user.dto';
 
