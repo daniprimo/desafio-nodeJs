@@ -1,8 +1,10 @@
+import { UserRegistryService } from './../user-registry/user-registry.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { Service } from '../models/service.model';
+import { HairJob } from '../models/hair-job.model';
+import { HairService } from '../hair-service/hair-service.service';
 
 const services = require('../../assets/services.json');
 @Component({
@@ -17,18 +19,17 @@ const services = require('../../assets/services.json');
   ],
 })
 export class ScheduleComponent implements OnInit {
-  services: Service[] = services;
+  hairJobs: HairJob[] = [];
   selected!: Date;
   availableTimes = ['08:00', '09:00', '10:00'];
+  form!: FormGroup;
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
-
-  constructor(private _formBuilder: FormBuilder) {}
+  constructor(
+    private hairService: HairService,
+    private userService: UserRegistryService
+  ) {}
 
   ngOnInit(): void {}
+
+  onSubmit() {}
 }

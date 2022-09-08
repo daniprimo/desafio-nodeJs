@@ -1,10 +1,9 @@
-import { Observable } from 'rxjs/internal/Observable';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Address } from '../models/address.model';
+
 import { MyErrorStateMatcher } from '../shared/my-error-state-matcher.component';
 import { UserRegistryService } from './user-registry.service';
 
@@ -16,7 +15,6 @@ import { UserRegistryService } from './user-registry.service';
 export class UserRegistryComponent implements OnInit {
   form!: FormGroup;
   isLoading: boolean = false;
-  address!: Address;
   user!: User;
   users: User[] = [];
   isRegistered: boolean = false;
