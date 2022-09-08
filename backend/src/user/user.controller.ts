@@ -7,7 +7,7 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
 import { userDto } from './dto/user.dto';
 import { userDtoRole } from './dto/user.dto role';
@@ -19,26 +19,33 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @ApiOperation({ summary: 'Adicionar novo Cliente' })
+  @ApiResponse({ status: 200, description: 'Cliente adicionado com sucesso' })
+  @ApiResponse({ status: 400, description: 'Parametros invalidos' })
   async create(@Body() data: userDto) {
     return await this.userService.create(data);
   }
 
   @Post('admin')
+  @ApiOperation({ summary: 'Criar Aministrador ' })
   async createAdmin(@Body() data: userDto) {
     return await this.userService.createAdmin(data);
   }
 
   @Get()
+  @ApiOperation({ summary: 'Listar todos os usuarios' })
   async getAll(): Promise<userDto[]> {
     return await this.userService.getAll();
   }
 
   @Get(':cpf')
+  @ApiOperation({ summary: 'Pesquisar usuario pelo CPF' })
   async getById(@Param('cpf') cpf: string): Promise<userDto> {
     return this.userService.getByCpf(cpf);
   }
 
   @Put(':cpf')
+  @ApiOperation({ summary: 'Atualizar registro o usuario a partir do CPF' })
   async update(
     @Param('cpf') cpf: string,
     @Body() user: userDtoRole,
@@ -47,6 +54,7 @@ export class UserController {
   }
 
   @Delete(':cpf')
+  @ApiOperation({ summary: 'Deletar o usuarios a partir do CPF' })
   async delete(@Param('cpf') cpf: string) {
     this.userService.delete(cpf);
   }
