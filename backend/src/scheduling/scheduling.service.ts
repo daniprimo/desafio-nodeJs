@@ -25,9 +25,12 @@ export class SchedulingService {
   }
 
   async create(data: Prisma.SchedulingCreateInput) {
-    const schedulling = await this.prisma.scheduling.create({ data });
-    return schedulling;
+    const schedulling = await this.prisma.scheduling.create({
+      data,
+    });
+    return await schedulling;
   }
+  
 
   async update(codigo: number, data: Prisma.SchedulingUpdateInput) {
     const scheduling = await this.prisma.scheduling.findUnique({
