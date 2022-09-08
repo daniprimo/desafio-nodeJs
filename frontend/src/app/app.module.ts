@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -12,11 +13,12 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,8 +30,6 @@ import { LoginComponent } from './login/login.component';
 import { ScheduleComponent } from './schedule/schedule.component';
 import { ServicesComponent } from './services/services.component';
 import { UserRegistryComponent } from './user-registry/user-registry.component';
-
-import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -65,6 +65,7 @@ import { RouterModule } from '@angular/router';
     MatProgressSpinnerModule,
     HttpClientModule,
     RouterModule,
+    MatSnackBarModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
