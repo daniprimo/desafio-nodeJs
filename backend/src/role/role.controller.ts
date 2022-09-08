@@ -7,15 +7,18 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
+import { roleDto } from './dto/role.dto';
 import { RoleService } from './role.service';
 
 @Controller('role')
+@ApiTags('Papeis')
 export class RoleController {
   constructor(private readonly roleService: RoleService) {}
 
   @Post()
-  async create(@Body() data: Prisma.roleCreateInput) {
+  async create(@Body() data: roleDto) {
     return await this.roleService.create(data);
   }
 
@@ -32,8 +35,8 @@ export class RoleController {
   @Put(':id')
   async update(
     @Param('id') id: number,
-    @Body() role: Prisma.roleCreateInput,
-  ): Promise<Prisma.roleCreateInput> {
+    @Body() role: roleDto,
+  ): Promise<roleDto> {
     return await this.roleService.update(Number(id), role);
   }
 

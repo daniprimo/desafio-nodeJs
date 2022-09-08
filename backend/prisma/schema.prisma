@@ -11,13 +11,13 @@ datasource db {
 }
 
 model User {
-  id        Int    @id @default(autoincrement())
-  cpf       String @unique
-  name      String
-  phone String
-  email     String @unique
-  password     String
-  role      Int?
+  id       Int    @id @default(autoincrement())
+  cpf      String @unique
+  name     String
+  phone    String
+  email    String @unique
+  password String
+  role     Int?
 
   @@map("pessoa")
 }
@@ -38,11 +38,11 @@ model service {
 }
 
 model Scheduling {
-  codigo          Int      @id @default(autoincrement())
-  user_id         Int
-  service_id      Int
-  dateOfService   DateTime
-  hourOfService   DateTime
+  codigo        Int      @id @default(autoincrement())
+  user_id       Int
+  service_id    Int
+  dateOfService DateTime
+  hourOfService DateTime
 
   @@map("Agendamento")
 }

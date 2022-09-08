@@ -9,31 +9,34 @@ import {
 } from '@nestjs/common';
 import { ServiceService } from './service.service';
 import { Prisma } from '@prisma/client';
+import { ApiTags } from '@nestjs/swagger';
+import { serviceDto } from './dto/service.dto';
 
 @Controller('service')
+@ApiTags('Servicos')
 export class ServiceController {
   constructor(private readonly serviceService: ServiceService) {}
 
   @Post()
-  async create(@Body() data: Prisma.serviceCreateInput) {
+  async create(@Body() data: serviceDto) {
     return await this.serviceService.create(data);
   }
 
   @Get()
-  async getAll(): Promise<Prisma.serviceCreateInput[]> {
+  async getAll(): Promise<serviceDto[]> {
     return await this.serviceService.getAll();
   }
 
   @Get(':id')
-  async getById(@Param('id') id: number): Promise<Prisma.serviceCreateInput> {
+  async getById(@Param('id') id: number): Promise<serviceDto> {
     return await this.serviceService.getById(Number(id));
   }
 
   @Put(':id')
   async update(
     @Param('id') id: number,
-    @Body() service: Prisma.serviceCreateInput,
-  ): Promise<Prisma.serviceCreateInput> {
+    @Body() service: serviceDto,
+  ): Promise<serviceDto> {
     return await this.serviceService.update(Number(id), service);
   }
 
