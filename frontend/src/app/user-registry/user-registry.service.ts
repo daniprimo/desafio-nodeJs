@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { cp } from 'fs';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs/internal/Subject';
 import { tap } from 'rxjs/operators';
@@ -33,14 +34,7 @@ export class UserRegistryService {
     );
   }
 
-  /*  getUserByCpf(cpf: string) {
-    return this.http.get('http://localhost:3000/user/' + cpf, {
-      responseType: 'json',
-      withCredentials: false,
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-      }),
-    });
-  } */
+  getUserByCpf(cpf: string): Observable<User> {
+    return this.http.get<User>(this.userUrl + `/${cpf}`);
+  }
 }

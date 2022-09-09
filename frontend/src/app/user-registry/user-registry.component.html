@@ -12,12 +12,28 @@
           onkeypress="$(this).mask('000.000.000-00');"
           formControlName="cpf"
         />
+        <mat-hint>Informe seu CPF. Apenas números</mat-hint>
+        <mat-error
+          *ngIf="
+            form.get('cpf')!.hasError('cpf') ||
+            !form.get('cpf')!.hasError('required')
+          "
+          >{{ getErrorMessage("cpf") }}</mat-error
+        >
       </div>
     </div>
     <div class="row mb-3">
       <label for="name" class="col-sm-2 col-form-label">Nome completo</label>
       <div class="col-sm-10">
         <input type="text" class="form-control" formControlName="name" />
+        <mat-hint>Informe seu nome completo.</mat-hint>
+        <mat-error
+          *ngIf="
+            form.get('name')!.hasError('text') ||
+            !form.get('name')!.hasError('required')
+          "
+          >{{ getErrorMessage("name") }}</mat-error
+        >
       </div>
     </div>
     <div class="row mb-3">
@@ -29,6 +45,14 @@
           formControlName="phone"
           onkeypress="$(this).mask('(00)00000-0000');"
         />
+        <mat-hint>Informe um número de telefone.</mat-hint>
+        <mat-error
+          *ngIf="
+            form.get('phone')!.hasError('text') ||
+            !form.get('phone')!.hasError('required')
+          "
+          >{{ getErrorMessage("phone") }}</mat-error
+        >
       </div>
     </div>
     <div class="row mb-3">
@@ -47,11 +71,8 @@
             form.get('email')!.hasError('email') &&
             !form.get('email')!.hasError('required')
           "
-          >Por favor informe um e-mail válido.</mat-error
+          >{{ getErrorMessage("email") }}</mat-error
         >
-        <mat-error *ngIf="form.get('email')!.hasError('required')">
-          Email é <strong>obrigatório</strong>
-        </mat-error>
       </div>
     </div>
     <div class="row mb-3">
@@ -62,6 +83,30 @@
           class="form-control"
           formControlName="password"
         />
+        <mat-hint>Informe uma senha. Mínimo 6 caracteres.</mat-hint>
+        <mat-error
+          *ngIf="
+            form.get('password')!.hasError('password') ||
+            !form.get('password')!.hasError('required')
+          "
+          >{{ getErrorMessage("password") }}</mat-error
+        >
+      </div>
+    </div>
+    <div class="row mb-3">
+      <label for="password" class="col-sm-2 col-form-label"
+        >Confirmar a senha</label
+      >
+      <div class="col-sm-10">
+        <input type="password" class="form-control" />
+        <mat-hint>Confirme a senha acima. </mat-hint>
+        <mat-error
+          *ngIf="
+            form.get('password')!.hasError('password') ||
+            !form.get('password')!.hasError('required')
+          "
+          >{{ getErrorMessage("checkPassword") }}</mat-error
+        >
       </div>
     </div>
 

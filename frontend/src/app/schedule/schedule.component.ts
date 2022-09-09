@@ -1,8 +1,15 @@
+import { UserRegistryService } from './../user-registry/user-registry.service';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
-import { Service } from '../models/service.model';
+import { HairJob } from '../models/hair-job.model';
+import { HairService } from '../hair-service/hair-service.service';
 
 const services = require('../../assets/services.json');
 @Component({
@@ -17,18 +24,27 @@ const services = require('../../assets/services.json');
   ],
 })
 export class ScheduleComponent implements OnInit {
-  services: Service[] = services;
-  selected!: Date;
+  services = new FormControl('');
+  hairJobs: HairJob[] = [];
+  selected!: Date | null;
   availableTimes = ['08:00', '09:00', '10:00'];
+  selectedHairJob!: string;
+  selectedTime!: string;
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
+  constructor(
+    private hairService: HairService,
+    private userService: UserRegistryService
+  ) {}
 
-  constructor(private _formBuilder: FormBuilder) {}
+  ngOnInit(): void {
+    this.getHairJobs();
+  }
 
-  ngOnInit(): void {}
+  onSubmit() {}
+
+  getHairJobs() {
+    this.hairService.getHairJobs().subscribe((services) => {
+      this.hairJobs = services;
+    });
+  }
 }

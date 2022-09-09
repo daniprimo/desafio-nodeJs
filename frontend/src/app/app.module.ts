@@ -1,5 +1,6 @@
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatNativeDateModule } from '@angular/material/core';
@@ -12,11 +13,13 @@ import { MatListModule } from '@angular/material/list';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,22 +29,22 @@ import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { ScheduleComponent } from './schedule/schedule.component';
-import { ServicesComponent } from './services/services.component';
+import { HairServiceComponent } from './hair-service/hair-service.component';
 import { UserRegistryComponent } from './user-registry/user-registry.component';
-
-import { RouterModule } from '@angular/router';
+import { UserHomeComponent } from './user-home/user-home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ServicesComponent,
+    HairServiceComponent,
     LoginComponent,
     ContactComponent,
     HomeComponent,
     UserRegistryComponent,
     ScheduleComponent,
+    UserHomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -65,6 +68,8 @@ import { RouterModule } from '@angular/router';
     MatProgressSpinnerModule,
     HttpClientModule,
     RouterModule,
+    MatSnackBarModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

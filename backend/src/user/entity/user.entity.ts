@@ -2,8 +2,8 @@ export class User {
   id: number;
   cpf: string;
   name: string;
-  telephone: string;
+  phone: string;
   email: string;
-  senha: string;
+  password: string;
   address_id: number;
 }
