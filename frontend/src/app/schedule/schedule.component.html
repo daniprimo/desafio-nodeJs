@@ -1,10 +1,51 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form (ngSubmit)="onSubmit()" class="container-fluid">
+  <h2>Selecione um ou mais serviços</h2>
   <mat-form-field appearance="fill">
-    <mat-label>Toppings</mat-label>
-    <mat-select formControlName="service" multiple>
-      <mat-option *ngFor="let hairJob of hairJobs" [value]="hairJob">{{
-        hairJob
+    <mat-label>Serviços</mat-label>
+    <mat-select
+      matNativeControl
+      [formControl]="services"
+      [(ngModel)]="selectedHairJob"
+      multiple
+    >
+      <mat-option *ngFor="let hairJob of hairJobs" [value]="hairJob.name">{{
+        hairJob.name
       }}</mat-option>
     </mat-select>
   </mat-form-field>
+  <mat-divider></mat-divider>
+  <h2>Selecione uma data</h2>
+  <mat-card class="calendar">
+    <mat-calendar [(selected)]="selected"></mat-calendar>
+  </mat-card>
+
+  <mat-divider></mat-divider>
+  <h2>Selecione um Horário</h2>
+  <mat-form-field appearance="fill">
+    <mat-label>Escolha um horário</mat-label>
+    <mat-select [(ngModel)]="selectedTime" name="time">
+      <mat-option *ngFor="let time of availableTimes" [value]="time">
+        {{ time }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-divider></mat-divider>
+
+  <mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Resumo do Agendamento</mat-card-title>
+      <mat-card-subtitle>Aline Sanches</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-title></mat-card-title>
+  </mat-card>
+  <h2>Resumo do Agendamento</h2>
+  <h3>Serviços Agendados</h3>
+  <mat-list>
+    <mat-list-item> {{ selectedHairJob }} </mat-list-item>
+  </mat-list>
+  <h3>Data Selecionada</h3>
+  <p>{{ selected }}</p>
+  <h3>Horário Escolhido</h3>
+  <p>{{ selectedTime }}</p>
 </form>
