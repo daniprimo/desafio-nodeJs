@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/internal/Observable';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -50,13 +51,12 @@ export class UserRegistryComponent implements OnInit {
       phone: new FormControl(user.phone, {
         validators: [Validators.required, Validators.minLength(11)],
       }),
-      checkPassword: new FormControl('', { validators: [Validators.required] }),
     });
 
     this.user = user;
   }
 
-  add(user: User): void {
+  add(user: User) {
     this.userRegistryService.addUser(user).subscribe((user) => {
       this.users.push(user);
     });
@@ -120,41 +120,37 @@ export class UserRegistryComponent implements OnInit {
         }
         return this.form.get('name')!.hasError('text') ? 'Nome inválido' : '';
         break;
-      case 'phone':
-        if (this.form.get('checkPassword')!.hasError('required')) {
-          return 'Você deve confirmar a senha';
-        }
-        return this.form.get('password') != this.form.get('checkPassword')
-          ? 'As senhas não conferem. Verifique e tente novamente.'
-          : '';
-        break;
       default:
         return 'Informação inválida. Verifique os campos do formulário.';
         break;
     }
   }
   onSubmit() {
-    const user: User = new User();
-    user.cpf = this.form.get('cpf')?.value;
-    user.email = this.form.get('email')?.value;
-    user.name = this.form.get('name')?.value;
-    user.password = this.form.get('password')?.value;
-    user.phone = this.form.get('phone')?.value;
+    if (this.form.valid) {
+      this.user = this.form.value;
+      console.log(this.user);
+      this.add(this.user);
+      this.form.reset();
+      this.router.navigate(['login']);
+    }
 
-    if (!this.form.invalid) {
+    /* if (!this.form.invalid) {
       if (this.getUserByCpf(user.cpf) != null) {
         this.isRegistered = true;
         this._snackBar.open('Usuário já cadastrado', 'Sair', {
           duration: 2000,
         });
         this.form.reset();
+      } else {
+        this._snackBar.open(
+          'Você deve informar os dados para cadastrar',
+          'Sair',
+          { duration: 2000 }
+        );
       }
     } else {
-      this._snackBar.open(
-        'Você deve informar os dados para cadastrar',
-        'Sair',
-        { duration: 2000 }
-      );
-    }
+      this.add(user);
+      this.form.reset();
+    } */
   }
 }
