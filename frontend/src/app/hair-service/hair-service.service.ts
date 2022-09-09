@@ -26,7 +26,7 @@ export class HairService {
     return this.http.delete<HairJob>(this.url + `/${idHairJob}`);
   }
 
-  updateHairJob(hairJob: HairJob) {
-    this.http.patch(this.url, hairJob);
+  updateHairJob(hairJobgId: number, hairJob: HairJob) {
+    this.http.put(this.url + `/${hairJobgId}`, hairJob);
   }
 }

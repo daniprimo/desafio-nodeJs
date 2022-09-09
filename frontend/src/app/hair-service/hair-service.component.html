@@ -17,18 +17,23 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div>
-            <label for="name">Nome do serviço:</label>
-            <input type="text" #name />
-            <label for="description">Descrição do serviço:</label>
-            <input type="text" #description />
-            <button
-              type="submit"
-              mat-raised-button
-              color="accent"
-              (click)="addHairJob(name.value, description.value)"
-            >
-              Salvar
-            </button>
+            <form [formGroup]="form">
+              <label for="name">Nome do serviço:</label>
+              <input type="text" #name />
+              <label for="description">Descrição do serviço:</label>
+              <input type="text" #description />
+              <button
+                type="submit"
+                mat-raised-button
+                color="accent"
+                (click)="addHairJob(name.value, description.value)"
+              >
+                Salvar
+              </button>
+              <button type="reset" mat-raised-button (click)="clearInput()">
+                Limpar
+              </button>
+            </form>
           </div>
         </mat-expansion-panel>
       </mat-accordion>
