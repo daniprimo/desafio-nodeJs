@@ -6,9 +6,11 @@ export class userDto {
   @ApiProperty()
   name: string;
   @ApiProperty()
-  telephone: string;
+  phone: string;
   @ApiProperty()
   email: string;
   @ApiProperty()
-  senha: string;
+  password: string;
+  @ApiProperty()
+  role?: string;
 }

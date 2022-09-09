@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { number } from 'yargs';
 import { PrismaService } from '../database/prisma.service';
 import { userDto } from './dto/user.dto';
+import { userDtoRole } from './dto/user.dto role';
 
 @Injectable()
 export class UserService {
@@ -25,7 +27,7 @@ export class UserService {
     return userExists;
   }
 
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: userDtoRole) {
     const userExist = await this.prisma.user.findFirst({
       where: {
         cpf: data.cpf,
@@ -45,7 +47,7 @@ export class UserService {
     return user;
   }
 
-  async createAdmin(data: Prisma.UserCreateInput) {
+  async createAdmin(data: userDtoRole) {
     const userExist = await this.prisma.user.findFirst({
       where: {
         cpf: data.cpf,
@@ -65,7 +67,7 @@ export class UserService {
     return user;
   }
 
-  async updatae(cpf: string, data: userDto) {
+  async updatae(cpf: string, data: Prisma.UserCreateInput) {
     const userAtual = await this.prisma.user.findUnique({
       where: {
         cpf,
