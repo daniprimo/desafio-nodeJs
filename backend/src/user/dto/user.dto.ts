@@ -11,9 +11,6 @@ export class userDto {
   email: string;
   @ApiProperty()
   password: string;
-<<<<<<< HEAD
   @ApiProperty()
   role?: string;
-=======
->>>>>>> a6fea912b86288d8eb940cd434a25860957209de
 }

@@ -2,12 +2,16 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { number } from 'yargs';
 import { PrismaService } from '../database/prisma.service';
-import { userDto } from './dto/user.dto';
 import { userDtoRole } from './dto/user.dto role';
+import * as bcrypt from 'bcrypt';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly mailService: MailService,
+  ) {}
 
   async getAll() {
     return await this.prisma.user.findMany();
@@ -43,6 +47,8 @@ export class UserService {
     });
 
     user.role = 2;
+
+    this.mailService.welcome(user);
 
     return user;
   }

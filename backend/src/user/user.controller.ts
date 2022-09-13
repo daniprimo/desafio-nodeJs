@@ -9,9 +9,9 @@ import {
 } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { Prisma } from '@prisma/client';
-import { userDto } from './dto/user.dto';
 import { userDtoRole } from './dto/user.dto role';
 import { UserService } from './user.service';
+import * as bcrypt from 'bcrypt';
 
 @Controller('user')
 @ApiTags('Usuario')
@@ -23,6 +23,7 @@ export class UserController {
   @ApiResponse({ status: 201, description: 'Cliente adicionado com sucesso' })
   @ApiResponse({ status: 400, description: 'Parametros invalidos' })
   async create(@Body() data: userDtoRole) {
+    data.password = await bcrypt.hash(data.password, 10);
     return await this.userService.create(data);
   }
 
@@ -57,6 +58,7 @@ export class UserController {
     @Param('cpf') cpf: string,
     @Body() user: userDtoRole,
   ): Promise<Prisma.UserCreateInput> {
+    user.password = await bcrypt.hash(user.password, 10);
     return await this.userService.updatae(cpf, user);
   }
 
