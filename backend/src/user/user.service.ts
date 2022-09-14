@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
-import { number } from 'yargs';
 import { PrismaService } from '../database/prisma.service';
 import { userDtoRole } from './dto/user.dto role';
-import * as bcrypt from 'bcrypt';
 import { MailService } from '../mail/mail.service';
 
 @Injectable()
@@ -21,6 +19,20 @@ export class UserService {
     const userExists = await this.prisma.user.findUnique({
       where: {
         cpf,
+      },
+    });
+
+    if (!userExists) {
+      throw new Error('User não encontrado');
+    }
+
+    return userExists;
+  }
+
+  async getByEmail(email: string) {
+    const userExists = await this.prisma.user.findUnique({
+      where: {
+        email,
       },
     });
 

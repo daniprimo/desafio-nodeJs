@@ -7,6 +7,7 @@ import { RoleModule } from './role/role.module';
 import { ServiceModule } from './service/service.module';
 import { SchedulingModule } from './scheduling/scheduling.module';
 import { MailModule } from './mail/mail.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MailModule } from './mail/mail.module';
     ServiceModule,
     SchedulingModule,
     MailModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService, PrismaService],
