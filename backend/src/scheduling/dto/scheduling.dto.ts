@@ -6,7 +6,7 @@ export class schedulingDto {
   @ApiProperty()
   service_id: number;
   @ApiProperty()
-  dateOfService: Date | string;
+  dateOfService: string;
   @ApiProperty()
-  hourOfService: Date | string;
+  hourOfService: string;
 }
