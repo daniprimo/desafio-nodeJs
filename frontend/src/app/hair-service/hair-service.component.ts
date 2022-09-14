@@ -1,13 +1,11 @@
-import {
-  FormGroup,
-  FormControl,
-  Validators,
-  FormBuilder,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
+
+import { EditDialogComponent } from './../edit-dialog/edit-dialog.component';
 import { HairJob } from './../models/hair-job.model';
 import { HairService } from './hair-service.service';
-import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-services',
@@ -17,33 +15,28 @@ import { ActivatedRoute } from '@angular/router';
 export class HairServiceComponent implements OnInit {
   hairServices: HairJob[] = [];
   form!: FormGroup;
+  formEditable!: FormGroup;
   hairJob!: HairJob;
+  hairJobUpdate!: HairJob;
   newHairJob!: HairJob;
-
-  @Input('name') inputName: string = '';
-  @Input('description') inputDescription: string = '';
+  isFormInvalid = false;
 
   constructor(
     private hairService: HairService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public dialog: MatDialog,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
     this.getHairJobs();
 
     this.form = this.formBuilder.group({
-      name: [null, [Validators.required]],
-      descriiption: [null, [Validators.required]],
+      name: [null, [Validators.required, Validators.minLength(5)]],
+      description: [null, [Validators.required, Validators.minLength(5)]],
     });
   }
 
-  createForm(hairJob: HairJob) {
-    this.form = new FormGroup({
-      name: new FormControl(hairJob.name),
-      description: new FormControl(hairJob.description),
-    });
-    this.hairJob = hairJob;
-  }
   getHairJobs() {
     this.hairService.getHairJobs().subscribe((services) => {
       this.hairServices = services;
@@ -69,11 +62,51 @@ export class HairServiceComponent implements OnInit {
       });
   }
 
-  updateHairJob(hairJobId: number, updateHairJob: HairJob) {
-    this.hairService.updateHairJob(hairJobId, updateHairJob);
+  updateHairJob(updateHairJob: HairJob) {
+    this.hairService.updateHairJob(updateHairJob).subscribe();
   }
 
   clearInput() {
-    this.form.patchValue({ name: null, description: null });
+    this.form.reset();
+  }
+  openEditDialog(id: number) {
+    this.hairService
+      .getHairJobById(id)
+      .subscribe((hairJob) => (this.hairJobUpdate = hairJob));
+    const dialogRef = this.dialog.open(EditDialogComponent, {
+      width: '300px',
+      data: {
+        name: this.hairJobUpdate.name,
+        description: this.hairJobUpdate.description,
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.newHairJob = {
+          id: id,
+          name: result.name,
+          description: result.description,
+        };
+        this.updateHairJob(this.newHairJob);
+      }
+    });
+  }
+
+  onSubmit() {
+    if (this.form.valid) {
+      this.addHairJob(
+        this.form.get('name')?.value,
+        this.form.get('description')?.value
+      );
+      this.form.reset();
+    } else {
+      if (!this.form.get('name')?.valid) {
+        alert('Informe um nome para o serviço');
+      }
+      if (!this.form.get('description')?.valid) {
+        alert('Informe uma descrição para o serviço');
+      }
+    }
   }
 }
