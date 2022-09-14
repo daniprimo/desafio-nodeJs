@@ -17,17 +17,15 @@
             </mat-panel-description>
           </mat-expansion-panel-header>
           <div>
-            <form [formGroup]="form">
-              <label for="name">Nome do serviço:</label>
-              <input type="text" #name />
-              <label for="description">Descrição do serviço:</label>
-              <input type="text" #description />
-              <button
-                type="submit"
-                mat-raised-button
-                color="accent"
-                (click)="addHairJob(name.value, description.value)"
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+              <mat-error *ngIf="isFormInvalid"
+                >É preciso informar os dados corretamente</mat-error
               >
+              <label for="name">Nome do serviço:</label>
+              <input type="text" formControlName="name" />
+              <label for="description">Descrição do serviço:</label>
+              <input type="text" formControlName="description" />
+              <button type="submit" mat-raised-button color="accent">
                 Salvar
               </button>
               <button type="reset" mat-raised-button (click)="clearInput()">
@@ -55,12 +53,17 @@
                   <button
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
+                    mat-raised-button
+                    color="primary"
+                    (click)="openEditDialog(hairJob.id)"
                   >
                     Editar
                   </button>
                   <button
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
+                    mat-raised-button
+                    color="warn"
                     (click)="deleteHairJob(hairJob)"
                   >
                     Excluir

@@ -26,7 +26,7 @@ export class HairService {
     return this.http.delete<HairJob>(this.url + `/${idHairJob}`);
   }
 
-  updateHairJob(hairJobgId: number, hairJob: HairJob) {
-    this.http.put(this.url + `/${hairJobgId}`, hairJob);
+  updateHairJob(hairJob: HairJob): Observable<HairJob> {
+    return this.http.put<HairJob>(this.url + `/${hairJob.id}`, hairJob);
   }
 }

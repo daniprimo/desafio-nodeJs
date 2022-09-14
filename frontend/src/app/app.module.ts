@@ -20,6 +20,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { ScheduleComponent } from './schedule/schedule.component';
 import { HairServiceComponent } from './hair-service/hair-service.component';
 import { UserRegistryComponent } from './user-registry/user-registry.component';
 import { UserHomeComponent } from './user-home/user-home.component';
+import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
     UserRegistryComponent,
     ScheduleComponent,
     UserHomeComponent,
+    EditDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +73,7 @@ import { UserHomeComponent } from './user-home/user-home.component';
     RouterModule,
     MatSnackBarModule,
     FormsModule,
+    MatDialogModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
