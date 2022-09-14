@@ -12,5 +12,5 @@ export class userDtoRole {
   @ApiProperty()
   password: string;
   @ApiProperty()
-  role?: number | null;
+  role?: number;
 }

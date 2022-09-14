@@ -1,11 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
+import { number } from 'yargs';
 import { PrismaService } from '../database/prisma.service';
-import { userDto } from './dto/user.dto';
+import { userDtoRole } from './dto/user.dto role';
+import * as bcrypt from 'bcrypt';
+import { MailService } from '../mail/mail.service';
 
 @Injectable()
 export class UserService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private readonly mailService: MailService,
+  ) {}
 
   async getAll() {
     return await this.prisma.user.findMany();
@@ -25,7 +31,7 @@ export class UserService {
     return userExists;
   }
 
-  async create(data: Prisma.UserCreateInput) {
+  async create(data: userDtoRole) {
     const userExist = await this.prisma.user.findFirst({
       where: {
         cpf: data.cpf,
@@ -42,10 +48,12 @@ export class UserService {
 
     user.role = 2;
 
+    this.mailService.welcome(user);
+
     return user;
   }
 
-  async createAdmin(data: Prisma.UserCreateInput) {
+  async createAdmin(data: userDtoRole) {
     const userExist = await this.prisma.user.findFirst({
       where: {
         cpf: data.cpf,
@@ -65,7 +73,7 @@ export class UserService {
     return user;
   }
 
-  async updatae(cpf: string, data: userDto) {
+  async updatae(cpf: string, data: Prisma.UserCreateInput) {
     const userAtual = await this.prisma.user.findUnique({
       where: {
         cpf,

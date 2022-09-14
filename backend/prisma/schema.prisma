@@ -41,8 +41,8 @@ model Scheduling {
   codigo        Int      @id @default(autoincrement())
   user_id       Int
   service_id    Int
-  dateOfService DateTime
-  hourOfService DateTime
+  dateOfService String
+  hourOfService String
 
   @@map("Agendamento")
 }
